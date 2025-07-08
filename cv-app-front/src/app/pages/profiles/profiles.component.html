@@ -1,0 +1,114 @@
+<div class="profiles-container">
+	<div class="header">
+		<h1>Profils</h1>
+		<p>Découvrez les profils disponibles</p>
+	</div>
+
+	<!-- Section des filtres -->
+	<mat-card class="filters-card">
+		<mat-card-header>
+			<mat-card-title>Filtres</mat-card-title>
+		</mat-card-header>
+		<mat-card-content>
+			<div class="filters-form">
+				<mat-form-field appearance="outline" class="filter-field">
+					<mat-label>Prénom</mat-label>
+					<input matInput [(ngModel)]="firstNameFilter" (input)="onFirstNameFilterChange()" placeholder="Filtrer par prénom...">
+				</mat-form-field>
+
+				<mat-form-field appearance="outline" class="filter-field">
+					<mat-label>Ville</mat-label>
+					<input matInput [(ngModel)]="cityFilter" (input)="onCityFilterChange()" placeholder="Filtrer par ville...">
+				</mat-form-field>
+
+				<button mat-raised-button color="warn" (click)="clearFilters()" class="clear-button">
+					Effacer les filtres
+				</button>
+			</div>
+		</mat-card-content>
+	</mat-card>
+
+	<!-- État de chargement -->
+	<div *ngIf="loading" class="loading-container">
+		<mat-spinner diameter="40"></mat-spinner>
+		<p>Recherche en cours...</p>
+	</div>
+
+	<!-- Message d'erreur -->
+	<div *ngIf="error" class="error-container">
+		<mat-card class="error-card">
+			<mat-card-content>
+				<p class="error-message">{{ error }}</p>
+				<button mat-raised-button color="primary" (click)="loadProfiles()">
+					Réessayer
+				</button>
+			</mat-card-content>
+		</mat-card>
+	</div>
+
+	<!-- Liste des profils -->
+	<div *ngIf="!loading && !error" class="profiles-grid">
+		<div *ngIf="profiles.length === 0" class="no-results">
+			<p>Aucun profil trouvé avec les filtres actuels.</p>
+		</div>
+
+		<mat-card *ngFor="let profile of profiles" class="profile-card">
+			<mat-card-header>
+				<div mat-card-avatar class="profile-avatar">
+					<img *ngIf="profile.avatar" [src]="profile.avatar" [alt]="profile.firstName + ' ' + profile.lastName">
+					<div *ngIf="!profile.avatar" class="avatar-placeholder">
+						{{ profile.firstName.charAt(0).toUpperCase() }}
+					</div>
+				</div>
+				<mat-card-title>{{ profile.firstName }}
+					{{ profile.lastName }}</mat-card-title>
+				<mat-card-subtitle>{{ profile.city }}</mat-card-subtitle>
+			</mat-card-header>
+
+			<mat-card-content>
+				<div class="profile-info">
+					<p *ngIf="profile.email" class="profile-email">
+						<strong>Email:</strong>
+						{{ profile.email }}
+					</p>
+					<p *ngIf="profile.phone" class="profile-phone">
+						<strong>Téléphone:</strong>
+						{{ profile.phone }}
+					</p>
+					<p *ngIf="profile.experience" class="profile-experience">
+						<strong>Expérience:</strong>
+						{{ profile.experience }}
+						ans
+					</p>
+					<p *ngIf="profile.education" class="profile-education">
+						<strong>Formation:</strong>
+						{{ profile.education }}
+					</p>
+					<p *ngIf="profile.bio" class="profile-bio">
+						{{ profile.bio }}
+					</p>
+
+					<div *ngIf="profile.skills && profile.skills.length > 0" class="profile-skills">
+						<strong>Compétences:</strong>
+						<div class="skills-tags">
+							<span *ngFor="let skill of profile.skills" class="skill-tag">
+								{{ skill }}
+							</span>
+						</div>
+					</div>
+				</div>
+			</mat-card-content>
+
+			<mat-card-actions>
+				<button mat-button color="primary" (click)="viewProfileDetail(profile.id)">Voir le profil complet</button>
+				<button mat-button color="accent">Contacter</button>
+			</mat-card-actions>
+		</mat-card>
+	</div>
+
+	<!-- Statistiques -->
+	<div *ngIf="!loading && !error && profiles.length > 0" class="stats">
+		<p>{{ profiles.length }}
+			profil(s) trouvé(s)</p>
+	</div>
+</div>
