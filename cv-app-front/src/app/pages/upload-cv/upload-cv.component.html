@@ -1,0 +1,23 @@
+<div class="upload-container">
+  <mat-card>
+    <h2>Déposer votre CV</h2>
+    <p>Veuillez sélectionner un fichier PDF contenant votre CV.</p>
+
+    <form (ngSubmit)="onSubmit()" [formGroup]="cvForm">
+      <input type="file" accept=".pdf" (change)="onFileSelected($event)" />
+      <p *ngIf="fileName">Fichier sélectionné : {{ fileName }}</p>
+
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="!selectedFile || cvForm.invalid"
+      >
+        Uploader
+      </button>
+    </form>
+
+    <mat-error *ngIf="uploadError">{{ uploadError }}</mat-error>
+    <mat-hint *ngIf="uploadSuccess">{{ uploadSuccess }}</mat-hint>
+  </mat-card>
+</div>
