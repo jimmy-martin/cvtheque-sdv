@@ -43,7 +43,7 @@ export class UploadCvComponent {
 
     this.cvService.uploadCV(this.selectedFile).subscribe({
       next: () => {
-        this.uploadSuccess = '✅ CV téléchargé avec succès !';
+        this.uploadSuccess = 'CV téléchargé avec succès !';
         this.uploadError = null;
         this.selectedFile = null;
         this.fileName = '';
@@ -51,12 +51,12 @@ export class UploadCvComponent {
       error: (error: HttpErrorResponse) => {
         if (error.status === 413) {
           this.uploadError =
-            '❌ Le fichier est trop volumineux. Taille maximale autorisée : 10MB.';
+            'Le fichier est trop volumineux. Taille maximale autorisée : 10MB.';
         } else if (error.status === 0) {
           this.uploadError =
-            '❌ Erreur réseau ou CORS : le serveur ne répond pas.';
+            'Erreur réseau ou CORS : le serveur ne répond pas.';
         } else {
-          this.uploadError = `❌ Échec du téléchargement : ${error.message}`;
+          this.uploadError = `Échec du téléchargement : ${error.message}`;
         }
         this.uploadSuccess = null;
       },
