@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import static com.example.auth_service.mapping.UserMapper.mapToDto;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor

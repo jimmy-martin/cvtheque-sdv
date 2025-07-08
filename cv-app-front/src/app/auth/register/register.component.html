@@ -1,1 +1,30 @@
-<p>register works!</p>
+<h2>Créer un compte</h2>
+
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form">
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Email</mat-label>
+    <input matInput formControlName="email" type="email" />
+    <mat-error *ngIf="registerForm.get('email')?.hasError('required')">
+      Email requis
+    </mat-error>
+    <mat-error *ngIf="registerForm.get('email')?.hasError('email')">
+      Format d'email invalide
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Mot de passe</mat-label>
+    <input matInput formControlName="password" type="password" />
+    <mat-error *ngIf="registerForm.get('password')?.hasError('required')">
+      Mot de passe requis
+    </mat-error>
+    <mat-error *ngIf="registerForm.get('password')?.hasError('pattern')">
+      Doit contenir 8 caractères minimum avec majuscule, minuscule, chiffre et caractère spécial
+    </mat-error>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit" [disabled]="registerForm.invalid">
+    S'inscrire
+  </button>
+</form>
+
