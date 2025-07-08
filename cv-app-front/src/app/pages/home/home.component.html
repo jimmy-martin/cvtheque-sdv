@@ -8,6 +8,7 @@
   >
     Accueil
   </a>
+  <a mat-button routerLink="/profiles" routerLinkActive="active-link">Profils</a>
   <a mat-button routerLink="/login" routerLinkActive="active-link">Connexion</a>
   <a
     mat-stroked-button
@@ -29,36 +30,27 @@
         </h1>
         <p>
           Les professeurs peuvent créer un compte, compléter leur profil et
-          déposer leur CV.<br />
+          déposer leur CV.<br/>
           Les écoles ont accès à une liste de professeurs et peuvent consulter
           ou télécharger leurs CVs.
         </p>
         <form>
           <mat-form-field appearance="fill" class="full-width">
             <mat-label>Votre adresse email</mat-label>
-            <input
-              matInput
-              type="email"
-              placeholder="email@exemple.com"
-              name="email"
-              [(ngModel)]="email"
-              required
-            />
+            <input matInput type="email" placeholder="email@exemple.com" name="email" [(ngModel)]="email" required/>
           </mat-form-field>
-        
+
           <button mat-raised-button color="primary">Commencer</button>
         </form>
-        
+
         <p class="small-link">
           Vous êtes un professeur ou une école ?
           <a routerLink="/register">Créer un compte</a>
         </p>
       </div>
       <div class="hero-image">
-        <img
-          src="https://res.cloudinary.com/dfqxbwfnc/image/upload/v1751963279/image_kviu2s.png"
-          alt="Illustration professeurs et écoles"
-        />
+        <img src="https://res.cloudinary.com/dfqxbwfnc/image/upload/v1751963279/image_kviu2s.png"
+             alt="Illustration professeurs et écoles"/>
       </div>
     </div>
   </mat-card>

@@ -1,0 +1,154 @@
+<div
+	class="profile-detail-container">
+	<!-- Header avec bouton retour -->
+	<div class="header">
+		<button mat-icon-button (click)="goBack()" class="back-button">
+			<mat-icon>arrow_back</mat-icon>
+		</button>
+		<h1>Détails du profil</h1>
+	</div>
+
+	<!-- État de chargement -->
+	<div *ngIf="loading" class="loading-container">
+		<mat-spinner diameter="50"></mat-spinner>
+		<p>Chargement du profil...</p>
+	</div>
+
+	<!-- Message d'erreur -->
+	<div *ngIf="error" class="error-container">
+		<mat-card class="error-card">
+			<mat-card-content>
+				<mat-icon class="error-icon">error</mat-icon>
+				<p class="error-message">{{ error }}</p>
+				<button mat-raised-button color="primary" (click)="goBack()">
+					Retour aux profils
+				</button>
+			</mat-card-content>
+		</mat-card>
+	</div>
+
+	<!-- Contenu du profil -->
+	<div
+		*ngIf="!loading && !error && profile" class="profile-content">
+		<!-- En-tête du profil -->
+		<mat-card class="profile-header-card">
+			<mat-card-content>
+				<div class="profile-header">
+					<div class="profile-avatar-large">
+						<img *ngIf="profile.avatar" [src]="profile.avatar" [alt]="profile.firstName + ' ' + profile.lastName">
+						<div *ngIf="!profile.avatar" class="avatar-placeholder-large">
+							{{ profile.firstName.charAt(0).toUpperCase() }}
+						</div>
+					</div>
+					<div class="profile-info-header">
+						<h2>{{ profile.firstName }}
+							{{ profile.lastName }}</h2>
+						<p class="profile-location">
+							<mat-icon>location_on</mat-icon>
+							{{ profile.city }}
+						</p>
+						<div class="profile-actions">
+							<button mat-raised-button color="primary" (click)="contactProfile()">
+								<mat-icon>email</mat-icon>
+								Contacter
+							</button>
+						</div>
+					</div>
+				</div>
+			</mat-card-content>
+		</mat-card>
+
+		<!-- Informations détaillées -->
+		<div
+			class="profile-details-grid">
+			<!-- Informations de contact -->
+			<mat-card class="detail-card">
+				<mat-card-header>
+					<mat-card-title>
+						<mat-icon>contact_mail</mat-icon>
+						Informations de contact
+					</mat-card-title>
+				</mat-card-header>
+				<mat-card-content>
+					<div class="contact-info">
+						<div *ngIf="profile.email" class="contact-item">
+							<mat-icon>email</mat-icon>
+							<div class="contact-details">
+								<strong>Email</strong>
+								<p>{{ profile.email }}</p>
+							</div>
+						</div>
+						<div *ngIf="profile.phone" class="contact-item">
+							<mat-icon>phone</mat-icon>
+							<div class="contact-details">
+								<strong>Téléphone</strong>
+								<p>{{ profile.phone }}</p>
+							</div>
+						</div>
+					</div>
+				</mat-card-content>
+			</mat-card>
+
+			<!-- Expérience et formation -->
+			<mat-card class="detail-card">
+				<mat-card-header>
+					<mat-card-title>
+						<mat-icon>work</mat-icon>
+						Expérience et formation
+					</mat-card-title>
+				</mat-card-header>
+				<mat-card-content>
+					<div class="experience-info">
+						<div *ngIf="profile.experience" class="experience-item">
+							<mat-icon>schedule</mat-icon>
+							<div class="experience-details">
+								<strong>Expérience</strong>
+								<p>{{ profile.experience }}
+									ans d'expérience</p>
+							</div>
+						</div>
+						<div *ngIf="profile.education" class="education-item">
+							<mat-icon>school</mat-icon>
+							<div class="education-details">
+								<strong>Formation</strong>
+								<p>{{ profile.education }}</p>
+							</div>
+						</div>
+					</div>
+				</mat-card-content>
+			</mat-card>
+
+			<!-- Compétences -->
+			<mat-card *ngIf="profile.skills && profile.skills.length > 0" class="detail-card skills-card">
+				<mat-card-header>
+					<mat-card-title>
+						<mat-icon>psychology</mat-icon>
+						Compétences
+					</mat-card-title>
+				</mat-card-header>
+				<mat-card-content>
+					<div class="skills-container">
+						<span *ngFor="let skill of profile.skills" class="skill-tag-large">
+							{{ skill }}
+						</span>
+					</div>
+				</mat-card-content>
+			</mat-card>
+
+			<!-- Biographie -->
+			<mat-card *ngIf="profile.bio" class="detail-card bio-card">
+				<mat-card-header>
+					<mat-card-title>
+						<mat-icon>person</mat-icon>
+						À propos
+					</mat-card-title>
+				</mat-card-header>
+				<mat-card-content>
+					<div class="bio-content">
+						<p>{{ profile.bio }}</p>
+					</div>
+				</mat-card-content>
+			</mat-card>
+		</div>
+	</div>
+</div>

@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { HomeComponent } from './pages/home/home.component';
+import { ProfilesComponent } from './pages/profiles/profiles.component';
+import { ProfileDetailComponent } from './pages/profile-detail/profile-detail.component';
 import { UploadCvComponent } from './pages/upload-cv/upload-cv.component';
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -12,6 +14,8 @@ const routes: Routes = [
     path: 'upload-cv',
     component: UploadCvComponent,
   },
+  { path: 'profiles', component: ProfilesComponent },
+  { path: 'profiles/:id', component: ProfileDetailComponent },
 ];
 
 @NgModule({

@@ -13,8 +13,9 @@ public class Cv {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "profile_id", nullable = false)
-    private Long profileId;
+    @OneToOne
+    @JoinColumn(name = "profile_id", nullable = false, referencedColumnName = "id")
+    private Profile profile;
 
     @Column(name = "file_url", nullable = false)
     private String fileUrl;
