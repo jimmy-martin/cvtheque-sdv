@@ -5,7 +5,6 @@
     mat-button
     routerLink="/"
     routerLinkActive="active-link"
-    [routerLinkActiveOptions]="{ exact: true }"
   >
     Accueil
   </a>
@@ -35,12 +34,21 @@
           ou télécharger leurs CVs.
         </p>
         <form>
-          <mat-form-field appearance="fill">
+          <mat-form-field appearance="fill" class="full-width">
             <mat-label>Votre adresse email</mat-label>
-            <input matInput placeholder="email@exemple.com" />
+            <input
+              matInput
+              type="email"
+              placeholder="email@exemple.com"
+              name="email"
+              [(ngModel)]="email"
+              required
+            />
           </mat-form-field>
+        
           <button mat-raised-button color="primary">Commencer</button>
         </form>
+        
         <p class="small-link">
           Vous êtes un professeur ou une école ?
           <a routerLink="/register">Créer un compte</a>
