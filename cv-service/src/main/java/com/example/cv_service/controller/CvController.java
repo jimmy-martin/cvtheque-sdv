@@ -1,10 +1,12 @@
 package com.example.cv_service.controller;
 
 import com.example.cv_service.dto.CvUploadResponse;
+import com.example.cv_service.dto.UserResponseDto;
 import com.example.cv_service.entity.Cv;
 import com.example.cv_service.entity.Profile;
 import com.example.cv_service.repository.CvRepository;
 import com.example.cv_service.repository.ProfileRepository;
+import com.example.cv_service.service.AuthClientService;
 import com.example.cv_service.service.CloudinaryService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,27 +24,45 @@ public class CvController {
     private final CloudinaryService cloudinaryService;
     private final CvRepository cvRepository;
     private final ProfileRepository profileRepository;
+    private final AuthClientService authClientService;
 
     public CvController(
             CloudinaryService cloudinaryService,
             CvRepository cvRepository,
-            ProfileRepository profileRepository) {
+            ProfileRepository profileRepository,
+            AuthClientService authClientService) {
         this.cloudinaryService = cloudinaryService;
         this.cvRepository = cvRepository;
         this.profileRepository = profileRepository;
+        this.authClientService = authClientService;
     }
 
     @GetMapping("/profile/{profileId}")
-    public List<Cv> getCvsByProfile(@PathVariable Long profileId) {
-        return cvRepository.findByProfileId(profileId);
+    public ResponseEntity<List<Cv>> getCvsByProfile(
+            @RequestHeader("Authorization") String authHeader,
+            @PathVariable Long profileId) {
+        String token = authHeader.replace("Bearer ", "");
+        UserResponseDto user = authClientService.getCurrentUser(token);
+        Optional<Profile> profileOpt = profileRepository.findById(profileId);
+        if (profileOpt.isEmpty() || !profileOpt.get().getUserId().equals(user.getId())) {
+            return ResponseEntity.status(403).build(); // Forbidden
+        }
+
+        return ResponseEntity.ok(cvRepository.findByProfileId(profileId));
     }
 
     @PostMapping("/upload")
     @Transactional
     public ResponseEntity<CvUploadResponse> uploadCv(
+            @RequestHeader("Authorization") String authHeader,
             @RequestParam("file") MultipartFile file,
-            @RequestParam("userId") Long userId) throws IOException {
-        Optional<Profile> profile = profileRepository.findByUserId(userId);
+            @RequestParam("profileId") Long profileId) throws IOException {
+        String token = authHeader.replace("Bearer ", "");
+        UserResponseDto user = authClientService.getCurrentUser(token);
+        if (user == null) {
+            return ResponseEntity.status(401).build();
+        }
+        Optional<Profile> profile = profileRepository.findById(profileId);
         if (profile.isEmpty()) {
             return ResponseEntity.badRequest().body(null);
         }
@@ -80,5 +100,12 @@ public class CvController {
                         profile.get().getId(),
                         cv.getUploadedAt(),
                         cv.getOriginalFilename()));
+    }
+
+    @GetMapping("/check-user")
+    public ResponseEntity<UserResponseDto> checkUser(@RequestHeader("Authorization") String authHeader) {
+        String token = authHeader.replace("Bearer ", "");
+        UserResponseDto user = authClientService.getCurrentUser(token);
+        return ResponseEntity.ok(user);
     }
 }

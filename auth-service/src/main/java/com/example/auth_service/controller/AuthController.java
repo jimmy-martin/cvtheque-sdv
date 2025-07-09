@@ -3,11 +3,16 @@ package com.example.auth_service.controller;
 import com.example.auth_service.dto.AuthResponse;
 import com.example.auth_service.dto.LoginRequest;
 import com.example.auth_service.dto.RegisterRequest;
+import com.example.auth_service.dto.UserResponseDto;
+import com.example.auth_service.entity.User;
 import com.example.auth_service.service.AuthService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+
+import static com.example.auth_service.mapping.UserMapper.mapToDto;
 
 @RestController
 @RequestMapping("/auth")
@@ -26,9 +31,9 @@ public class AuthController {
         return ResponseEntity.ok(authService.login(request));
     }
 
-    // @GetMapping("/me")
-    // public UserResponseDto getCurrentUser(@AuthenticationPrincipal User user) {
-    // return mapToDto(user);
-    // }
+    @GetMapping("/me")
+    public UserResponseDto getCurrentUser(@AuthenticationPrincipal User user) {
+        return mapToDto(user);
+    }
 
 }
