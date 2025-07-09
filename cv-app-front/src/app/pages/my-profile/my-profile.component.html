@@ -1,0 +1,121 @@
+<div class="my-profile-container">
+	<div class="my-profile-card">
+		<div class="profile-header">
+			<h2>Mon Profil</h2>
+			<button mat-icon-button (click)="toggleEdit()" [disabled]="isLoading" class="edit-btn">
+				<mat-icon>{{ isEditing ? 'close' : 'edit' }}</mat-icon>
+			</button>
+		</div>
+
+		<div *ngIf="isLoading" class="loading-container">
+			<mat-spinner diameter="40"></mat-spinner>
+			<p>Chargement en cours...</p>
+		</div>
+
+		<div
+			*ngIf="!isLoading" class="profile-content">
+			<!-- Informations utilisateur -->
+			<div class="user-info-section">
+				<h3>Informations de compte</h3>
+				<div class="info-grid">
+					<div class="info-item">
+						<span class="label">Email :</span>
+						<span class="value">{{ getUserInfo().email }}</span>
+					</div>
+					<div class="info-item">
+						<span class="label">ID Utilisateur :</span>
+						<span class="value">{{ getUserInfo().userId }}</span>
+					</div>
+					<div class="info-item">
+						<span class="label">Rôles :</span>
+						<span class="value">
+							<mat-chip-set>
+								<mat-chip *ngFor="let role of getUserInfo().roles" color="primary">
+									{{ role }}
+								</mat-chip>
+							</mat-chip-set>
+						</span>
+					</div>
+				</div>
+			</div>
+
+			<!-- Formulaire de profil -->
+			<div class="profile-form-section">
+				<h3>Informations personnelles</h3>
+				<form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="profile-form">
+					<div class="form-row">
+						<mat-form-field appearance="fill" class="half-width">
+							<mat-label>Prénom</mat-label>
+							<input matInput formControlName="firstName" [readonly]="!isEditing"/>
+							<mat-error *ngIf="profileForm.get('firstName')?.hasError('required')">
+								Prénom requis
+							</mat-error>
+							<mat-error *ngIf="profileForm.get('firstName')?.hasError('minlength')">
+								Le prénom doit contenir au moins 2 caractères
+							</mat-error>
+						</mat-form-field>
+
+						<mat-form-field appearance="fill" class="half-width">
+							<mat-label>Nom</mat-label>
+							<input matInput formControlName="lastName" [readonly]="!isEditing"/>
+							<mat-error *ngIf="profileForm.get('lastName')?.hasError('required')">
+								Nom requis
+							</mat-error>
+							<mat-error *ngIf="profileForm.get('lastName')?.hasError('minlength')">
+								Le nom doit contenir au moins 2 caractères
+							</mat-error>
+						</mat-form-field>
+					</div>
+
+					<mat-form-field appearance="fill" class="full-width">
+						<mat-label>Téléphone</mat-label>
+						<input matInput formControlName="phone" [readonly]="!isEditing"/>
+						<mat-error *ngIf="profileForm.get('phone')?.hasError('required')">
+							Numéro de téléphone requis
+						</mat-error>
+						<mat-error *ngIf="profileForm.get('phone')?.hasError('pattern')">
+							Format de téléphone invalide
+						</mat-error>
+					</mat-form-field>
+
+					<mat-form-field appearance="fill" class="full-width">
+						<mat-label>Ville</mat-label>
+						<input matInput formControlName="city" [readonly]="!isEditing"/>
+						<mat-error *ngIf="profileForm.get('city')?.hasError('required')">
+							Ville requise
+						</mat-error>
+						<mat-error *ngIf="profileForm.get('city')?.hasError('minlength')">
+							La ville doit contenir au moins 2 caractères
+						</mat-error>
+					</mat-form-field>
+
+					<div *ngIf="isEditing" class="button-group">
+						<button mat-raised-button color="primary" type="submit" [disabled]="profileForm.invalid || isLoading" class="save-btn">
+							<mat-spinner *ngIf="isLoading" diameter="20"></mat-spinner>
+							<span *ngIf="!isLoading">Enregistrer</span>
+						</button>
+
+						<button mat-stroked-button type="button" (click)="toggleEdit()" [disabled]="isLoading" class="cancel-btn">
+							Annuler
+						</button>
+					</div>
+				</form>
+			</div>
+
+			<!-- Actions rapides -->
+			<div class="quick-actions">
+				<h3>Actions rapides</h3>
+				<div class="actions-grid">
+					<button mat-stroked-button class="action-btn" routerLink="/upload-cv">
+						<mat-icon>upload_file</mat-icon>
+						Uploader un CV
+					</button>
+					<button mat-stroked-button class="action-btn" routerLink="/profiles">
+						<mat-icon>people</mat-icon>
+						Voir tous les profils
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

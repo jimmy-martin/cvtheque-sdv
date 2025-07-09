@@ -26,7 +26,8 @@ export class LoginComponent {
 
       this.authService.login(payload).subscribe({
         next: (res) => {
-          sessionStorage.setItem('token', res.token);
+          sessionStorage.setItem('token', res.message);
+          this.authService.decodeUserInfo(res.message)
           this.snackBar.open('Connexion réussie ✅', 'Fermer', {
             duration: 3000,
             panelClass: ['snackbar-success']

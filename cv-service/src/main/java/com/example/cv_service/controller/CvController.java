@@ -7,6 +7,7 @@ import com.example.cv_service.repository.CvRepository;
 import com.example.cv_service.repository.ProfileRepository;
 import com.example.cv_service.service.CloudinaryService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -15,7 +16,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/cvs")
 public class CvController {
@@ -26,8 +26,7 @@ public class CvController {
     public CvController(
             CloudinaryService cloudinaryService,
             CvRepository cvRepository,
-            ProfileRepository profileRepository
-    ) {
+            ProfileRepository profileRepository) {
         this.cloudinaryService = cloudinaryService;
         this.cvRepository = cvRepository;
         this.profileRepository = profileRepository;
@@ -39,15 +38,33 @@ public class CvController {
     }
 
     @PostMapping("/upload")
+    @Transactional
     public ResponseEntity<CvUploadResponse> uploadCv(
             @RequestParam("file") MultipartFile file,
-            @RequestParam("profileId") Long profileId
-    ) throws IOException {
-        Optional<Profile> profile = profileRepository.findById(profileId);
+            @RequestParam("userId") Long userId) throws IOException {
+        Optional<Profile> profile = profileRepository.findByUserId(userId);
         if (profile.isEmpty()) {
             return ResponseEntity.badRequest().body(null);
         }
 
+        // Supprimer l'ancien CV s'il existe
+        List<Cv> existingCvs = cvRepository.findByProfileId(profile.get().getId());
+        for (Cv existingCv : existingCvs) {
+            // Supprimer le fichier de Cloudinary si nécessaire
+            if (existingCv.getFileUrl() != null && !existingCv.getFileUrl().isEmpty()) {
+                try {
+                    cloudinaryService.deleteFile(existingCv.getFileUrl());
+                } catch (Exception e) {
+                    // Log l'erreur mais continue le processus
+                    System.err.println("Erreur lors de la suppression du fichier Cloudinary: " + e.getMessage());
+                }
+            }
+        }
+
+        // Supprimer tous les CVs existants de la base de données
+        cvRepository.deleteByProfileId(profile.get().getId());
+
+        // Uploader le nouveau CV
         String url = cloudinaryService.uploadPdf(file);
 
         Cv cv = new Cv();
@@ -60,10 +77,8 @@ public class CvController {
         return ResponseEntity.ok(
                 new CvUploadResponse(
                         url,
-                        profileId,
+                        profile.get().getId(),
                         cv.getUploadedAt(),
-                        cv.getOriginalFilename()
-                )
-        );
+                        cv.getOriginalFilename()));
     }
 }

@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/profiles")
 public class ProfileController {
@@ -35,11 +34,10 @@ public class ProfileController {
             @RequestParam(value = "firstName", required = false) String firstName,
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "10") int size) {
-        List<Profile> profiles = profileRepository.findAllByCityContainingIgnoreCaseAndFirstNameContainingIgnoreCase(
+        List<Profile> profiles = profileRepository.searchProfiles(
                 city != null ? city : "",
                 firstName != null ? firstName : "",
-                PageRequest.of(page, size)
-        );
+                PageRequest.of(page, size));
 
         List<GetProfileResponse> response = profiles.stream()
                 .map(GetProfileResponse::new)

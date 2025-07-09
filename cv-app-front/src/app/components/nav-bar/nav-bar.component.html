@@ -1,0 +1,55 @@
+<nav class="nav-bar">
+	<div class="nav-container">
+		<div class="nav-brand">
+			<a routerLink="/" class="brand-link" [class.active]="isActiveRoute('/')">
+				<mat-icon>school</mat-icon>
+				CVthèque
+			</a>
+		</div>
+
+		<div class="nav-menu" *ngIf="isAuthenticated()">
+			<a mat-button routerLink="/" [class.active]="isActiveRoute('/')">
+				<mat-icon>home</mat-icon>
+				Accueil
+			</a>
+			<a mat-button routerLink="/profiles" [class.active]="isActiveRoute('/profiles')" *ngIf="hasAdminRole()">
+				<mat-icon>people</mat-icon>
+				Profils
+			</a>
+			<a mat-button routerLink="/upload-cv" [class.active]="isActiveRoute('/upload-cv')">
+				<mat-icon>upload_file</mat-icon>
+				Upload CV
+			</a>
+		</div>
+
+		<div class="nav-menu" *ngIf="!isAuthenticated()">
+			<a mat-button routerLink="/login" [class.active]="isActiveRoute('/login')">
+				<mat-icon>login</mat-icon>
+				Connexion
+			</a>
+			<a mat-button routerLink="/register" [class.active]="isActiveRoute('/register')">
+				<mat-icon>person_add</mat-icon>
+				Créer un compte
+			</a>
+		</div>
+
+		<div class="nav-user" *ngIf="isAuthenticated()">
+			<button mat-button [matMenuTriggerFor]="menu" class="user-menu-btn">
+				<mat-icon>account_circle</mat-icon>
+				{{ getUserEmail() }}
+				<mat-icon>arrow_drop_down</mat-icon>
+			</button>
+
+			<mat-menu #menu="matMenu">
+				<button mat-menu-item routerLink="/my-profile">
+					<mat-icon>person</mat-icon>
+					Mon Profil
+				</button>
+				<button mat-menu-item (click)="logout()">
+					<mat-icon>logout</mat-icon>
+					Déconnexion
+				</button>
+			</mat-menu>
+		</div>
+	</div>
+</nav>

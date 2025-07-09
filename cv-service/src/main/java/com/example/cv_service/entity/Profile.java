@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "profile")
+@Table(name = "profiles")
 public class Profile {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,8 +20,8 @@ public class Profile {
     @Column(name = "city")
     private String city;
 
-    @Column(name = "phone_number")
-    private String phoneNumber;
+    @Column(name = "phone")
+    private String phone;
 
     @Column(name = "user_id")
     private Long userId;
