@@ -44,7 +44,35 @@ public class JwtService {
                 .getSubject();
     }
 
+    public Long extractUserId(String token) {
+        return Long.parseLong(
+                Jwts.parserBuilder()
+                        .setSigningKey(getSigningKey())
+                        .build()
+                        .parseClaimsJws(token)
+                        .getBody()
+                        .get("userId").toString()
+        );
+    }
+
+    public boolean isTokenValid(String token, User user) {
+        final String email = extractEmail(token);
+        return email.equals(user.getEmail()) && !isTokenExpired(token);
+    }
+
+    public boolean isTokenExpired(String token) {
+        return Jwts.parserBuilder()
+                .setSigningKey(getSigningKey())
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .getExpiration()
+                .before(new Date());
+    }
+
+
+
     private Key getSigningKey() {
-        return Keys.hmacShaKeyFor(secretKey.getBytes()); // use field
+        return Keys.hmacShaKeyFor(secretKey.getBytes());
     }
 }
