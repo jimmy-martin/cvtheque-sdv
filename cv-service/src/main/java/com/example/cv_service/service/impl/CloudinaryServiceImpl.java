@@ -29,7 +29,7 @@ public class CloudinaryServiceImpl implements CloudinaryService {
                 : "file";
 
         Map<String, Object> uploadOptions = Map.of(
-                "resource_type", "raw",
+                "resource_type", "image",
                 "use_filename", true,
                 "unique_filename", false,
                 "public_id", publicId
