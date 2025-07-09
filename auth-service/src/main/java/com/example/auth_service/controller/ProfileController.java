@@ -21,7 +21,7 @@ public class ProfileController {
 
     @PostMapping
     public ResponseEntity<Profile> createProfile(@RequestBody CreateProfileDto dto,
-                                                 @RequestHeader("Authorization") String authHeader) {
+            @RequestHeader("Authorization") String authHeader) {
         Long userId = extractUserId(authHeader);
         User user = userRepository.findById(userId).orElseThrow();
         Profile profile = profileService.createProfile(dto, user);
@@ -37,7 +37,7 @@ public class ProfileController {
 
     @PatchMapping("/me")
     public ResponseEntity<Profile> updateMyProfile(@RequestBody UpdateProfileDto dto,
-                                                   @RequestHeader("Authorization") String authHeader) {
+            @RequestHeader("Authorization") String authHeader) {
         Long userId = extractUserId(authHeader);
         Profile updated = profileService.updateProfileByUserId(userId, dto);
         return ResponseEntity.ok(updated);

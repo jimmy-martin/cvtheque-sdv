@@ -1,0 +1,67 @@
+<div class="complete-profile-container">
+	<div class="complete-profile-card">
+		<h2>Complétez votre profil</h2>
+		<p class="welcome-text">
+			Bienvenue ! Pour finaliser votre inscription, veuillez compléter vos informations personnelles.
+		</p>
+
+		<form [formGroup]="completeProfileForm" (ngSubmit)="onSubmit()" class="profile-form">
+			<div class="form-row">
+				<mat-form-field appearance="fill" class="half-width">
+					<mat-label>Prénom</mat-label>
+					<input matInput formControlName="firstName" placeholder="Votre prénom"/>
+					<mat-error *ngIf="completeProfileForm.get('firstName')?.hasError('required')">
+						Prénom requis
+					</mat-error>
+					<mat-error *ngIf="completeProfileForm.get('firstName')?.hasError('minlength')">
+						Le prénom doit contenir au moins 2 caractères
+					</mat-error>
+				</mat-form-field>
+
+				<mat-form-field appearance="fill" class="half-width">
+					<mat-label>Nom</mat-label>
+					<input matInput formControlName="lastName" placeholder="Votre nom"/>
+					<mat-error *ngIf="completeProfileForm.get('lastName')?.hasError('required')">
+						Nom requis
+					</mat-error>
+					<mat-error *ngIf="completeProfileForm.get('lastName')?.hasError('minlength')">
+						Le nom doit contenir au moins 2 caractères
+					</mat-error>
+				</mat-form-field>
+			</div>
+
+			<mat-form-field appearance="fill" class="full-width">
+				<mat-label>Téléphone</mat-label>
+				<input matInput formControlName="phone" placeholder="Votre numéro de téléphone"/>
+				<mat-error *ngIf="completeProfileForm.get('phone')?.hasError('required')">
+					Numéro de téléphone requis
+				</mat-error>
+				<mat-error *ngIf="completeProfileForm.get('phone')?.hasError('pattern')">
+					Format de téléphone invalide
+				</mat-error>
+			</mat-form-field>
+
+			<mat-form-field appearance="fill" class="full-width">
+				<mat-label>Ville</mat-label>
+				<input matInput formControlName="city" placeholder="Votre ville"/>
+				<mat-error *ngIf="completeProfileForm.get('city')?.hasError('required')">
+					Ville requise
+				</mat-error>
+				<mat-error *ngIf="completeProfileForm.get('city')?.hasError('minlength')">
+					La ville doit contenir au moins 2 caractères
+				</mat-error>
+			</mat-form-field>
+
+			<div class="button-group">
+				<button mat-raised-button color="primary" type="submit" [disabled]="completeProfileForm.invalid || isLoading" class="submit-btn">
+					<mat-spinner *ngIf="isLoading" diameter="20"></mat-spinner>
+					<span *ngIf="!isLoading">Compléter le profil</span>
+				</button>
+
+				<button mat-stroked-button type="button" (click)="skipProfile()" class="skip-btn">
+					Passer cette étape
+				</button>
+			</div>
+		</form>
+	</div>
+</div>

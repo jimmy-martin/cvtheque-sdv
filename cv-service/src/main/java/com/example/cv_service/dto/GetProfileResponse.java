@@ -12,7 +12,7 @@ public class GetProfileResponse {
     private String firstName;
     private String lastName;
     private String city;
-    private String phoneNumber;
+    private String phone;
     private String cvUrl;
 
     public GetProfileResponse(Profile profile) {
@@ -20,7 +20,7 @@ public class GetProfileResponse {
         this.firstName = profile.getFirstName();
         this.lastName = profile.getLastName();
         this.city = profile.getCity();
-        this.phoneNumber = profile.getPhoneNumber();
+        this.phone = profile.getPhone();
         this.cvUrl = profile.getCv() != null ? profile.getCv().getFileUrl() : null;
     }
 }

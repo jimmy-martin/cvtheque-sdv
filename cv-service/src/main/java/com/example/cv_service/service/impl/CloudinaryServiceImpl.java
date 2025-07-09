@@ -32,11 +32,51 @@ public class CloudinaryServiceImpl implements CloudinaryService {
                 "resource_type", "image",
                 "use_filename", true,
                 "unique_filename", false,
-                "public_id", publicId
-        );
+                "public_id", publicId);
 
-        Map uploadResult = cloudinary.uploader().upload(file.getBytes(), uploadOptions);
+        return (String) cloudinary.uploader().upload(file.getBytes(), uploadOptions).get("secure_url");
+    }
 
-        return (String) uploadResult.get("secure_url");
+    @Override
+    public void deleteFile(String fileUrl) throws Exception {
+        if (fileUrl == null || fileUrl.isEmpty()) {
+            return;
+        }
+
+        // Extraire le public_id de l'URL Cloudinary
+        String publicId = extractPublicIdFromUrl(fileUrl);
+        if (publicId != null) {
+            Map<String, Object> deleteOptions = Map.of(
+                    "resource_type", "image");
+            cloudinary.uploader().destroy(publicId, deleteOptions);
+        }
+    }
+
+    private String extractPublicIdFromUrl(String fileUrl) {
+        try {
+            // Exemple d'URL Cloudinary:
+            // https://res.cloudinary.com/dfqxbwfnc/image/upload/v1751963279/image_kviu2s.png
+            // On extrait la partie après "upload/" et avant le dernier "/"
+            String[] parts = fileUrl.split("/upload/");
+            if (parts.length > 1) {
+                String afterUpload = parts[1];
+                // Supprimer la version si présente (v1751963279/)
+                if (afterUpload.contains("/")) {
+                    String[] versionAndFile = afterUpload.split("/", 2);
+                    if (versionAndFile.length > 1) {
+                        // Supprimer l'extension du fichier
+                        String fileName = versionAndFile[1];
+                        int lastDotIndex = fileName.lastIndexOf('.');
+                        if (lastDotIndex > 0) {
+                            return fileName.substring(0, lastDotIndex);
+                        }
+                        return fileName;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Erreur lors de l'extraction du public_id: " + e.getMessage());
+        }
+        return null;
     }
 }

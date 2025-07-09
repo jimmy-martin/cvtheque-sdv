@@ -1,0 +1,41 @@
+<div class="upload-choice-container">
+	<div class="upload-choice-card">
+		<h2>Voulez-vous uploader votre CV ?</h2>
+
+		<div class="choice-content">
+			<div class="choice-option upload-option">
+				<mat-icon class="choice-icon">upload_file</mat-icon>
+				<h3>Oui, uploader mon CV</h3>
+				<p>
+					Partagez votre CV pour être visible par les écoles et augmenter vos chances d'être contacté.
+				</p>
+				<button mat-raised-button color="primary" (click)="uploadCV()" class="choice-btn">
+					Uploader mon CV
+				</button>
+			</div>
+
+			<div class="choice-divider">
+				<span>ou</span>
+			</div>
+
+			<div class="choice-option skip-option">
+				<mat-icon class="choice-icon">skip_next</mat-icon>
+				<h3>Plus tard</h3>
+				<p>
+					Vous pourrez toujours uploader votre CV plus tard depuis votre espace personnel.
+				</p>
+				<button mat-stroked-button (click)="skipUpload()" class="choice-btn">
+					Continuer sans CV
+				</button>
+			</div>
+		</div>
+
+		<div class="info-box">
+			<mat-icon>info</mat-icon>
+			<p>
+				<strong>Conseil :</strong>
+				Un CV à jour augmente significativement vos chances d'être contacté par les écoles.
+			</p>
+		</div>
+	</div>
+</div>

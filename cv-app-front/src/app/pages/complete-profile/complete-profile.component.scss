@@ -1,0 +1,93 @@
+.complete-profile-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.complete-profile-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  width: 100%;
+  max-width: 600px;
+}
+
+h2 {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #3f51b5;
+  margin-bottom: 16px;
+  border-bottom: 2px solid #e0e0e0;
+  padding-bottom: 16px;
+}
+
+.welcome-text {
+  text-align: center;
+  color: #666;
+  margin-bottom: 32px;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-row {
+  display: flex;
+  gap: 16px;
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+    gap: 0;
+  }
+}
+
+.half-width {
+  flex: 1;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.button-group {
+  display: flex;
+  gap: 16px;
+  margin-top: 24px;
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+  }
+}
+
+.submit-btn {
+  flex: 2;
+  padding: 12px 24px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.skip-btn {
+  flex: 1;
+  padding: 12px 24px;
+  font-size: 16px;
+}
+
+mat-form-field {
+  margin-bottom: 8px;
+}
+
+mat-spinner {
+  margin-right: 8px;
+}

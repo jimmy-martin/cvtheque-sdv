@@ -1,57 +1,34 @@
-<nav mat-toolbar>
-  <span class="logo">CVThéque</span>
-  <span class="spacer"></span>
-  <a
-    mat-button
-    routerLink="/"
-    routerLinkActive="active-link"
-  >
-    Accueil
-  </a>
-  <a mat-button routerLink="/profiles" routerLinkActive="active-link">Profils</a>
-  <a mat-button routerLink="/login" routerLinkActive="active-link">Connexion</a>
-  <a
-    mat-stroked-button
-    color="primary"
-    routerLink="/register"
-    routerLinkActive="active-link"
-  >
-    Créer un compte
-  </a>
-</nav>
-
 <div class="home-container mat-typography">
-  <mat-card class="hero-card">
-    <div class="hero-content">
-      <div class="hero-text">
-        <h1>
-          Une plateforme dédiée aux écoles pour gérer et recruter des
-          professeurs
-        </h1>
-        <p>
-          Les professeurs peuvent créer un compte, compléter leur profil et
-          déposer leur CV.<br/>
-          Les écoles ont accès à une liste de professeurs et peuvent consulter
-          ou télécharger leurs CVs.
-        </p>
-        <form>
-          <mat-form-field appearance="fill" class="full-width">
-            <mat-label>Votre adresse email</mat-label>
-            <input matInput type="email" placeholder="email@exemple.com" name="email" [(ngModel)]="email" required/>
-          </mat-form-field>
+	<mat-card class="hero-card">
+		<div class="hero-content">
+			<div class="hero-text">
+				<h1>
+					Une plateforme dédiée aux écoles pour gérer et recruter des
+					          professeurs
+				</h1>
+				<p>
+					Les professeurs peuvent créer un compte, compléter leur profil et
+					          déposer leur CV.<br/>
+					Les écoles ont accès à une liste de professeurs et peuvent consulter
+					          ou télécharger leurs CVs.
+				</p>
+				<form>
+					<mat-form-field appearance="fill" class="full-width">
+						<mat-label>Votre adresse email</mat-label>
+						<input matInput type="email" placeholder="email@exemple.com" name="email" [(ngModel)]="email" required/>
+					</mat-form-field>
 
-          <button mat-raised-button color="primary">Commencer</button>
-        </form>
+					<button mat-raised-button color="primary">Commencer</button>
+				</form>
 
-        <p class="small-link">
-          Vous êtes un professeur ou une école ?
-          <a routerLink="/register">Créer un compte</a>
-        </p>
-      </div>
-      <div class="hero-image">
-        <img src="https://res.cloudinary.com/dfqxbwfnc/image/upload/v1751963279/image_kviu2s.png"
-             alt="Illustration professeurs et écoles"/>
-      </div>
-    </div>
-  </mat-card>
+				<p class="small-link">
+					Vous êtes un professeur ou une école ?
+					<a routerLink="/register">Créer un compte</a>
+				</p>
+			</div>
+			<div class="hero-image">
+				<img src="https://res.cloudinary.com/dfqxbwfnc/image/upload/v1751963279/image_kviu2s.png" alt="Illustration professeurs et écoles"/>
+			</div>
+		</div>
+	</mat-card>
 </div>
