@@ -1,40 +1,44 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
-import { UploadCvComponent } from './upload-cv.component';
-import { CvService } from '../../service/cv/cv-upload.service';
+import { MyProfileComponent } from './my-profile.component';
+import { ProfileService } from '../../service/profile/profile.service';
 import { AuthService } from '../../service/auth/auth.service';
 
-describe('UploadCvComponent', () => {
-  let component: UploadCvComponent;
-  let fixture: ComponentFixture<UploadCvComponent>;
+describe('MyProfileComponent', () => {
+  let component: MyProfileComponent;
+  let fixture: ComponentFixture<MyProfileComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [UploadCvComponent],
+      declarations: [MyProfileComponent],
       imports: [
         HttpClientTestingModule,
+        RouterTestingModule,
+        ReactiveFormsModule,
         MatCardModule,
         MatButtonModule,
         MatFormFieldModule,
         MatInputModule,
-        MatProgressSpinnerModule,
         MatSnackBarModule,
-        ReactiveFormsModule,
         BrowserAnimationsModule,
+        MatIconModule,
+        MatProgressSpinnerModule,
       ],
-      providers: [CvService, AuthService],
+      providers: [ProfileService, AuthService],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(UploadCvComponent);
+    fixture = TestBed.createComponent(MyProfileComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
