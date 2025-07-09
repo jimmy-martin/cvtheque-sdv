@@ -95,5 +95,9 @@ export class ProfileDetailComponent implements OnInit, OnDestroy {
     }
   }
 
+  shareByEmail(): void {
+    // TODO: Implémenter la fonctionnalité de partage par email
+    console.log('Partager le profil par email:', this.profile?.firstName, this.profile?.lastName);
+  }
 
 }
