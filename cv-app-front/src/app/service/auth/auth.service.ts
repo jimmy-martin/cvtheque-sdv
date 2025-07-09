@@ -10,7 +10,7 @@ import { User } from '../../auth/models/user.model';
   providedIn: 'root'
 })
 export class AuthService {
-  private readonly API_URL_AUTH = 'http://localhost:8081/auth';
+  private readonly API_URL_AUTH = 'http://localhost:8081/api/auth';
 
   constructor(private http: HttpClient) { }
 
@@ -30,11 +30,11 @@ export class AuthService {
   logout(): void {
     sessionStorage.removeItem('token');
   }
-  
+
   isAuthenticated(): boolean {
     return !!sessionStorage.getItem('token');
   }
-  
+
   getToken(): string | null {
     return sessionStorage.getItem('token');
   }
