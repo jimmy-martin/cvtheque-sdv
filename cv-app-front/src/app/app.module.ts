@@ -16,6 +16,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { UploadCvComponent } from './pages/upload-cv/upload-cv.component';
@@ -43,6 +44,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatInputModule,
     MatProgressSpinnerModule,
     MatIconModule,
+    MatTooltipModule,
     FormsModule,
     HttpClientModule,
   ],

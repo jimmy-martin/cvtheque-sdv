@@ -5,7 +5,7 @@ import {
 } from '@angular/common/http/testing';
 
 import { ProfileService } from './profile.service';
-import { Profile } from '../../models/profile.model';
+import { Profile } from '../../profile/models/profile.model';
 
 describe('ProfileService', () => {
   let service: ProfileService;
@@ -37,6 +37,7 @@ describe('ProfileService', () => {
         city: 'Paris',
         email: 'john@example.com',
         skills: ['Angular', 'TypeScript'],
+        bio: 'Développeur passionné',
       },
     ];
 
@@ -57,6 +58,7 @@ describe('ProfileService', () => {
         lastName: 'Doe',
         city: 'Paris',
         email: 'john@example.com',
+        bio: 'Développeur passionné',
       },
     ];
 
@@ -79,6 +81,7 @@ describe('ProfileService', () => {
         lastName: 'Doe',
         city: 'Paris',
         email: 'john@example.com',
+        bio: 'Développeur passionné',
       },
     ];
 
@@ -101,6 +104,7 @@ describe('ProfileService', () => {
         lastName: 'Doe',
         city: 'Paris',
         email: 'john@example.com',
+        bio: 'Développeur passionné',
       },
     ];
 
