@@ -61,59 +61,33 @@
 		<!-- Informations détaillées -->
 		<div
 			class="profile-details-grid">
-			<!-- Informations de contact -->
-			<mat-card class="detail-card">
+			<!-- CV -->
+			<mat-card class="detail-card cv-card">
 				<mat-card-header>
 					<mat-card-title>
-						<mat-icon>contact_mail</mat-icon>
-						Informations de contact
+						<mat-icon>description</mat-icon>
+						Curriculum Vitae
 					</mat-card-title>
-				</mat-card-header>
-				<mat-card-content>
-					<div class="contact-info">
-						<div *ngIf="profile.email" class="contact-item">
-							<mat-icon>email</mat-icon>
-							<div class="contact-details">
-								<strong>Email</strong>
-								<p>{{ profile.email }}</p>
-							</div>
-						</div>
-						<div *ngIf="profile.phone" class="contact-item">
-							<mat-icon>phone</mat-icon>
-							<div class="contact-details">
-								<strong>Téléphone</strong>
-								<p>{{ profile.phone }}</p>
-							</div>
-						</div>
+					<div class="cv-actions" *ngIf="profile.cvUrl">
+						<button mat-icon-button (click)="downloadCV()" mattooltip="Télécharger le CV">
+							<mat-icon>download</mat-icon>
+						</button>
+						<button mat-icon-button (click)="openCVInNewTab()" mattooltip="Ouvrir dans un nouvel onglet">
+							<mat-icon>open_in_new</mat-icon>
+						</button>
 					</div>
-				</mat-card-content>
-			</mat-card>
-
-			<!-- Expérience et formation -->
-			<mat-card class="detail-card">
-				<mat-card-header>
-					<mat-card-title>
-						<mat-icon>work</mat-icon>
-						Expérience et formation
-					</mat-card-title>
 				</mat-card-header>
 				<mat-card-content>
-					<div class="experience-info">
-						<div *ngIf="profile.experience" class="experience-item">
-							<mat-icon>schedule</mat-icon>
-							<div class="experience-details">
-								<strong>Expérience</strong>
-								<p>{{ profile.experience }}
-									ans d'expérience</p>
-							</div>
+					<div class="cv-content">
+						<div *ngIf="profile.cvUrl; else noCv" class="cv-pdf">
+							<iframe [src]="getSafeUrl(profile.cvUrl)" width="100%" height="600" frameborder="0" title="CV de {{ profile.firstName }} {{ profile.lastName }}"></iframe>
 						</div>
-						<div *ngIf="profile.education" class="education-item">
-							<mat-icon>school</mat-icon>
-							<div class="education-details">
-								<strong>Formation</strong>
-								<p>{{ profile.education }}</p>
+						<ng-template #noCv>
+							<div class="no-cv-message">
+								<mat-icon>info</mat-icon>
+								<p>Aucun CV disponible pour ce profil</p>
 							</div>
-						</div>
+						</ng-template>
 					</div>
 				</mat-card-content>
 			</mat-card>

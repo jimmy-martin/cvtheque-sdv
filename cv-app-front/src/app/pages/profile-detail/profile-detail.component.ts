@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Subject, takeUntil } from 'rxjs';
 import { ProfileService } from '../../service/profile/profile.service';
 import { Profile } from '../../profile/models/profile.model';
@@ -18,7 +19,8 @@ export class ProfileDetailComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private sanitizer: DomSanitizer
   ) {}
 
   ngOnInit(): void {
@@ -72,4 +74,26 @@ export class ProfileDetailComponent implements OnInit, OnDestroy {
     // TODO: Implémenter la fonctionnalité de contact
     console.log('Contacter le profil:', this.profile?.firstName);
   }
+
+  getSafeUrl(url: string): SafeResourceUrl {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  }
+
+  downloadCV(): void {
+    if (this.profile?.cvUrl) {
+      const link = document.createElement('a');
+      link.href = this.profile.cvUrl;
+      link.download = `CV_${this.profile.firstName}_${this.profile.lastName}.pdf`;
+      link.target = '_blank';
+      link.click();
+    }
+  }
+
+  openCVInNewTab(): void {
+    if (this.profile?.cvUrl) {
+      window.open(this.profile.cvUrl, '_blank');
+    }
+  }
+
+
 }

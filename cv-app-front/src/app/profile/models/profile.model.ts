@@ -6,8 +6,7 @@ export interface Profile {
   email?: string;
   phone?: string;
   skills?: string[];
-  experience?: number;
-  education?: string;
   bio?: string;
   avatar?: string;
+  cvUrl?: string;
 }
