@@ -52,7 +52,7 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
 
     - name : List files in cv-service directory
-      run: ls -la .
+      run: ls -la ./cv-service
 
     - name: Build and Push Image
       uses: docker/build-push-action@v4
