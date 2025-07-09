@@ -36,8 +36,8 @@ describe('ProfileService', () => {
         lastName: 'Doe',
         city: 'Paris',
         email: 'john@example.com',
-        skills: ['Angular', 'TypeScript'],
         bio: 'Développeur passionné',
+        cvUrl: 'http://example.com/cv.pdf',
       },
     ];
 
@@ -59,6 +59,7 @@ describe('ProfileService', () => {
         city: 'Paris',
         email: 'john@example.com',
         bio: 'Développeur passionné',
+        cvUrl: 'http://example.com/cv.pdf',
       },
     ];
 
@@ -82,6 +83,7 @@ describe('ProfileService', () => {
         city: 'Paris',
         email: 'john@example.com',
         bio: 'Développeur passionné',
+        cvUrl: 'http://example.com/cv.pdf',
       },
     ];
 
@@ -105,6 +107,7 @@ describe('ProfileService', () => {
         city: 'Paris',
         email: 'john@example.com',
         bio: 'Développeur passionné',
+        cvUrl: 'http://example.com/cv.pdf',
       },
     ];
 
