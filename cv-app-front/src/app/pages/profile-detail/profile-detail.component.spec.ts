@@ -12,25 +12,11 @@ import { DomSanitizer } from '@angular/platform-browser';
 
 import { ProfileDetailComponent } from './profile-detail.component';
 import { ProfileService } from '../../service/profile/profile.service';
-import { Profile } from '../../profile/models/profile.model';
 
 describe('ProfileDetailComponent', () => {
   let component: ProfileDetailComponent;
   let fixture: ComponentFixture<ProfileDetailComponent>;
-  let profileService: ProfileService;
   let mockActivatedRoute: any;
-
-  const mockProfile: Profile = {
-    id: 1,
-    firstName: 'John',
-    lastName: 'Doe',
-    city: 'Paris',
-    email: 'john@example.com',
-    phone: '+33123456789',
-    bio: 'Développeur passionné',
-    avatar: 'http://example.com/avatar.jpg',
-    cvUrl: 'http://example.com/cv.pdf',
-  };
 
   beforeEach(async () => {
     mockActivatedRoute = {
@@ -67,7 +53,6 @@ describe('ProfileDetailComponent', () => {
 
     fixture = TestBed.createComponent(ProfileDetailComponent);
     component = fixture.componentInstance;
-    profileService = TestBed.inject(ProfileService);
     fixture.detectChanges();
   });
 
@@ -82,5 +67,9 @@ describe('ProfileDetailComponent', () => {
 
   it('should have getSafeUrl method', () => {
     expect(component.getSafeUrl).toBeDefined();
+  });
+
+  it('should have shareByEmail method', () => {
+    expect(component.shareByEmail).toBeDefined();
   });
 });
