@@ -10,7 +10,7 @@ import { User } from '../../auth/models/user.model';
   providedIn: 'root'
 })
 export class AuthService {
-  private readonly API_URL_AUTH = 'http://localhost:8081/api/auth';
+  private readonly API_URL_AUTH = 'http://localhost:8081/auth';
 
   constructor(private http: HttpClient) { }
 
