@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule } from '@angular/forms';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -25,6 +26,7 @@ describe('HomeComponent', () => {
         MatIconModule,
         MatProgressSpinnerModule,
         NoopAnimationsModule,
+        FormsModule,
       ],
     }).compileComponents();
 
