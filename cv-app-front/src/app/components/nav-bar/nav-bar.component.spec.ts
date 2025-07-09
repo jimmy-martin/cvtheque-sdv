@@ -1,4 +1,4 @@
-import { TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
@@ -16,12 +16,16 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
-import { AppComponent } from './app.component';
-import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { NavBarComponent } from './nav-bar.component';
+import { AuthService } from '../../service/auth/auth.service';
 
-describe('AppComponent', () => {
+describe('NavBarComponent', () => {
+  let component: NavBarComponent;
+  let fixture: ComponentFixture<NavBarComponent>;
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      declarations: [NavBarComponent],
       imports: [
         RouterTestingModule,
         BrowserAnimationsModule,
@@ -40,26 +44,15 @@ describe('AppComponent', () => {
         FormsModule,
         HttpClientModule,
       ],
-      declarations: [AppComponent, NavBarComponent],
+      providers: [AuthService],
     }).compileComponents();
-  });
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
-  });
-
-  it(`should have as title 'cv-app-front'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('cv-app-front');
-  });
-
-  it('should render router outlet', () => {
-    const fixture = TestBed.createComponent(AppComponent);
+    fixture = TestBed.createComponent(NavBarComponent);
+    component = fixture.componentInstance;
     fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('router-outlet')).toBeTruthy();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
   });
 });
